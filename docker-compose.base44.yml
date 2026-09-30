@@ -1,0 +1,25 @@
+services:
+  app:
+    image: node:22
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - JEV_CHAT_PORT=3000
+      - JEV_CHAT_HOST=0.0.0.0
+      - JEV_CHAT_MAX_KEYSTROKES=400
+      - JEV_CHAT_MAX_USD_PER_REPLY=0.5
+      - JEV_REQUEST_TIMEOUT_MS=30000
+    env_file:
+      - /run/base44/app.env
+    command: ["sh", "-ec", "npm install && exec node --watch server.js"]
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/config').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

@@ -100,8 +100,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     budgetUSD: Number(process.env.JEV_CHAT_MAX_USD_PER_REPLY || 0.5),
     timeoutMs: Number(process.env.JEV_REQUEST_TIMEOUT_MS || 30000),
   });
-  app.listen(port, '127.0.0.1', () => {
-    console.log(`Jev keyboard chat on http://localhost:${port}`);
+  const host = process.env.JEV_CHAT_HOST || '127.0.0.1';
+  app.listen(port, host, () => {
+    console.log(`Jev keyboard chat on http://${host}:${port}`);
     if (!key) console.log('TYPESAFE_API_KEY is not set; the page will show a configuration error.');
   });
 }

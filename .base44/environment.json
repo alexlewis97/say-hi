@@ -1,0 +1,13 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/api/config",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "TYPESAFE_API_KEY",
+      "description": "TypeSafe (typesafe.ai) API key for the JEV model. Get it from the TypeSafe dashboard. Without it, the app boots but the page shows a configuration error and chat won't work.",
+      "requiredAtBoot": false,
+      "generatedForDevelopment": false
+    }
+  ]
+}
